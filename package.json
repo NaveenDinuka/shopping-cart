@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon ./app --exec babel-node",
+    "build": "rm -rf ./build && babel ./app -d build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +17,14 @@
   "bugs": {
     "url": "https://github.com/NaveenDinuka/shopping-cart/issues"
   },
-  "homepage": "https://github.com/NaveenDinuka/shopping-cart#readme"
+  "homepage": "https://github.com/NaveenDinuka/shopping-cart#readme",
+  "dependencies": {
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/node": "^7.0.0",
+    "@babel/plugin-transform-runtime": "^7.0.0-rc.4",
+    "@babel/preset-env": "^7.0.0-rc.4",
+    "@babel/runtime": "^7.0.0-rc.4",
+    "nodemon": "^1.18.11"
+  }
 }
