@@ -1,0 +1,19 @@
+{
+  "name": "shopping-cart",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NaveenDinuka/shopping-cart.git"
+  },
+  "author": "naveen <naveen.rajapaksa@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NaveenDinuka/shopping-cart/issues"
+  },
+  "homepage": "https://github.com/NaveenDinuka/shopping-cart#readme"
+}

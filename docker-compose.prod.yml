@@ -1,0 +1,20 @@
+version: '3.3'
+services:
+  db:
+    env_file:
+      - ./config/docker.production.env
+    volumes:
+      - /data/shopping-cart/production/db:/var/lib/postgresql/data
+    restart: always
+  cache:
+    volumes:
+      - /data/shopping-cart/production/cache:/data
+    restart: always
+  app:
+    working_dir: /data/shopping-cart/production/app
+    env_file:
+      - ./config/docker.production.env
+    volumes:
+      - ./:/data/shopping-cart/production/app
+    command: ./shopping-cart.sh
+    restart: always

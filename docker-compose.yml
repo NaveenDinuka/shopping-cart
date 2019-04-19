@@ -1,0 +1,37 @@
+version: '3.3'
+services:
+  db:
+    image: "postgres:10.6"
+    env_file:
+      - ./config/docker.env
+    ports:
+      - 5433:5432
+    volumes:
+      - /data/shopping-cart/dev/db:/var/lib/postgresql/data
+    networks:
+      - webnet
+  cache:
+    image: "redis:5.0.2"
+    ports:
+      - 6378:6379
+    volumes:
+      - /data/shopping-cart/dev/cache:/data
+    networks:
+      - webnet
+  app:
+    image: "node:8.12.0"
+    working_dir: /data/shopping-cart/dev/app
+    env_file:
+      - ./config/docker.env
+    ports:
+      - 3000:3000
+    volumes:
+      - ./:/data/shopping-cart/dev/app
+    networks:
+      - webnet
+    command: sleep infinity
+networks:
+  webnet:
+  default:
+    external:
+      name: nginx
