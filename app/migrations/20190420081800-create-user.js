@@ -22,9 +22,6 @@ module.exports = {
       password: {
         type: Sequelize.STRING
       },
-      userVerificationToken: {
-        type: Sequelize.STRING
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

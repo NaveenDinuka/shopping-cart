@@ -1,5 +1,5 @@
 {
-  "appName": "Shopping Cart API",
+  "appName": "Shopping Cart",
   "logs": {
     "path": "./logs",
     "info": "info.log",
