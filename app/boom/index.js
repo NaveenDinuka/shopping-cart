@@ -31,6 +31,11 @@ class Boom {
         const { res, makeJson } = this;
         res.send(400).json(makeJson(400, message));
     }
+
+    badImplementation(message) {
+        const { res, makeJson } = this;
+        res.send(500).json(makeJson(500, message));
+    }
 }
 
 export default Boom;

@@ -1,7 +1,6 @@
 import url from 'url';
 import Boom from '../boom';
 
-const pathPrefix = '/:0.0.0';
 let instance = null;
 class Router {
     static getInstance() {
@@ -26,7 +25,7 @@ class Router {
         this.middlewares.push(middleware);
     }
 
-    group(prefix = '/', middlewares, cb) {
+    group(prefix, middlewares, cb) {
         if (!prefix) prefix = '/';
         if (!middlewares) middlewares = [];
 
@@ -51,17 +50,20 @@ class Router {
 
         let hasRoute = false;
         this.routes[method].forEach(async ([ route, ...rest ]) => {
-            const _route = `${ pathPrefix }${ route }`;
-            if (pathname === _route) {
+            if (pathname === route) {
                 hasRoute = true;
 
                 for (let func of rest) {
                     if (res.finished)
                         return;
 
-                    const prom = new Promise(resolve => res.resolve = resolve);
-                    await func(req, res, () => { res.resolve() });
-                    await prom;
+                    try {
+                        const prom = new Promise(resolve => res.resolve = resolve);
+                        await func(req, res, () => { res.resolve() });
+                        await prom;
+                    } catch (e) {
+                        res.boom.badImplementation();
+                    }
                 }
             }
         });
