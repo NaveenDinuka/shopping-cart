@@ -6,7 +6,6 @@ module.exports = (sequelize, DataTypes) => {
     lastName: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING,
-    userVerificationToken: DataTypes.STRING
   }, {});
   User.associate = function(models) {
     User.hasOne(models.Cart)
