@@ -1,9 +1,7 @@
 import http from 'http';
-import Router from './router';
-import systemRoutes from './router/systemRoutes';
+import System from './core/System';
 
-const router = Router.getInstance();
-const server = http.createServer((req, res) => { router.initialize(req, res) });
-systemRoutes(router);
+const { router } = new System();
+const server = http.createServer((req, res) => { router.handleRoute(req, res) });
 
 server.listen('3000');

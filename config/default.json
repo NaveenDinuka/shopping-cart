@@ -1,1 +1,24 @@
-{}
+{
+  "appName": "Shopping Cart API",
+  "logs": {
+    "path": "./logs",
+    "info": "info.log",
+    "error": "error.log"
+  },
+  "database": {
+    "pgsql": {
+      "dialect": "postgres",
+      "host": "0.0.0.0",
+      "port": "5432",
+      "username": "postgres",
+      "password": "pgsqlpass",
+      "database": "shopping-cart"
+    }
+  },
+  "cache": {
+    "redis": {
+      "host": "0.0.0.0",
+      "port": "6379"
+    }
+  }
+}

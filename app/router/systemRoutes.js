@@ -1,5 +1,7 @@
 import healthController from '../controllers/healthController';
 
 export default function(route) {
-    route.get('/api/v1/health-check', healthController.healthCheck);
+    route.group('/api/v1', [], r => {
+        r.get('/health-check', healthController.healthCheck);
+    });
 }
