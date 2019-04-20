@@ -8,19 +8,10 @@ const { path, info, error } = config.logs;
 const prettyStream = new PrettyStream();
 prettyStream.pipe(process.stdout);
 
-let instance = null;
 class Logger {
     constructor() {
         console.log('creating');
         fs.mkdirSync(path);
-    }
-
-    static getInstance () {
-        if (instance === null) {
-            instance = new Logger();
-        }
-
-        return instance;
     }
 
     static LOG_INFO(name, data) {

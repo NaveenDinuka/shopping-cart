@@ -1,4 +1,5 @@
 import url from 'url';
+import Boom from '../boom';
 
 const pathPrefix = '/:0.0.0';
 let instance = null;
@@ -43,13 +44,17 @@ class Router {
      * */
     handleRoute(req, res) {
         res.send = this.send;
+        res.boom = new Boom(res);
 
         const { pathname } = url.parse(req.url, true, true);
         const method = req.method;
 
+        let hasRoute = false;
         this.routes[method].forEach(async ([ route, ...rest ]) => {
             const _route = `${ pathPrefix }${ route }`;
             if (pathname === _route) {
+                hasRoute = true;
+
                 for (let func of rest) {
                     if (res.finished)
                         return;
@@ -60,6 +65,10 @@ class Router {
                 }
             }
         });
+
+        if (!hasRoute) {
+            res.send(404).json({ message: 'not found' });
+        }
     }
 
     /**
@@ -75,7 +84,9 @@ class Router {
             json: (data) => {
                 res.setHeader('Content-Type', 'application/json');
                 res.end(JSON.stringify(data));
-                res.resolve();
+
+                if (res.resolve)
+                    res.resolve();
             }
         }
     }

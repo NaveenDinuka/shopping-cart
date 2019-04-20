@@ -2,14 +2,13 @@
  * Module Imports
  * */
 import config from 'config';
+import bodyParser from 'body-parser';
 
 import Router from '../router';
 import Sequelize from '../schemas/index';
 import RedisCache from '../cache';
 
 import systemRoutes from '../router/systemRoutes';
-import userDomain from '../domains/user/routes';
-
 class System {
     constructor() {
         this.initializeApp();
@@ -18,6 +17,8 @@ class System {
     async initializeApp() {
         //- Initializing app router
         this.router = Router.getInstance();
+        this.router.use(bodyParser.json({ limit: "100mb" }));
+        this.router.use(bodyParser.urlencoded({ extended: false }));
 
         //- Connect to PostgreSQL
         const sequelize = Sequelize.getInstance();
@@ -27,9 +28,8 @@ class System {
         const redisClient = RedisCache.getInstance();
         await redisClient.initializeRedis();
 
-        //- Domain Routes
+        //- System Routes
         systemRoutes(this.router);
-        // userDomain(this.router);
     }
 }
 

@@ -1,9 +1,6 @@
 const healthController = {
     healthCheck(req, res) {
-        res.send(200).json({
-            status: 'success',
-            message: 'API status: Alive'
-        });
+        res.boom.success('API status: Alive');
     }
 };
 
