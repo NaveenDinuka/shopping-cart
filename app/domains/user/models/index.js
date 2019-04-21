@@ -48,6 +48,22 @@ class UserModel {
             return { status: 'error', error }
         }
     }
+
+    /**
+     * Delete user by criteria
+     * @param Object:criteria
+     * @return Object:result
+     * */
+    async deleteUser(criteria) {
+        const { User } = Schemas.getInstance().models;
+        try {
+            const user = await User.destroy(criteria);
+            return { status: 'success' };
+        } catch(error) {
+            Logger.LOG_ERROR('UserModel', { status: 'Error occurred while deleting user', error });
+            return { status: 'error', error }
+        }
+    }
 }
 
 export default UserModel;
