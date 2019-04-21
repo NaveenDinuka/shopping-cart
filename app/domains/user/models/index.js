@@ -12,8 +12,8 @@ class UserModel {
         return instance;
     }
 
-    static formatUser({ firstName, lastName, email }) {
-        return { firstName, lastName, email };
+    static formatUser({ id, firstName, lastName, email }) {
+        return { id, firstName, lastName, email };
     }
 
     /**

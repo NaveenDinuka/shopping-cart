@@ -61,7 +61,15 @@ const userController = {
         cache.set(tokenKey, user.id);
 
         const formattedUser = UserModel.formatUser(user);
-        res.boom.success('Login successful', { user: formattedUser, token });
+        res.boom.success('Sign-in successful', { user: formattedUser, token });
+    },
+
+    signout: async (req, res) => {
+        const { tokenKey } = req;
+        const cache = RedisCache.getInstance();
+
+        cache.del(tokenKey);
+        res.boom.success('Sign-out successful');
     }
 };
 

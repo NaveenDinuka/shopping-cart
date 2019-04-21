@@ -24,8 +24,8 @@ describe('UserController Test Scenario', () => {
         done();
     });
 
-    describe('user signup test -- ', () => {
-        it('signup user with bad data (error expected)', (done) => {
+    describe('user sign-up test -- ', () => {
+        it('sign-up user with bad data (error expected)', (done) => {
             const { firstName, lastName, email, password } = testUser;
 
             client.post(`${ apiPrefix }/user/signup`)
@@ -42,7 +42,7 @@ describe('UserController Test Scenario', () => {
                 });
         });
 
-        it('signup user', (done) => {
+        it('sign-up user', (done) => {
             client.post(`${ apiPrefix }/user/signup`)
                 .send(testUser)
                 .end((err, res) => {

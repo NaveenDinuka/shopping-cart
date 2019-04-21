@@ -61,6 +61,16 @@ class RedisCache {
 			Logger.LOG_ERROR('RedisCache', { status: 'Error occurred while reading cache data', error });
 		}
 	}
+
+	/**
+	 * Delete cache key
+	 * @param key:String Cache key
+	 * @return null;
+	 * */
+	del(key) {
+		const { redisClient } = this;
+		redisClient.del(key);
+	}
 }
 
 export default RedisCache;
