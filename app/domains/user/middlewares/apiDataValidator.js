@@ -9,6 +9,11 @@ const signupSchema = Joi.object().keys({
     confirmPassword: Joi.string().regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/).required(),
 });
 
+const signinSchema = Joi.object().keys({
+    email: Joi.string().email({ minDomainAtoms: 2 }).required(),
+    password: Joi.string().regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/).required(),
+});
+
 const signup = (req, res, next) => {
     const result = Joi.validate(req.body, signupSchema);
     const { error } = result;
@@ -21,4 +26,16 @@ const signup = (req, res, next) => {
     next();
 };
 
-export { signup };
+const signin = (req, res, next) => {
+    const result = Joi.validate(req.body, signinSchema);
+    const { error } = result;
+
+    if (error) {
+        res.boom.badRequest('Data validation error');
+        Logger.LOG_ERROR(error);
+    }
+
+    next();
+};
+
+export { signup, signin };

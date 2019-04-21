@@ -6,9 +6,9 @@ let expect = null;
 
 describe('UserController Test Scenario', () => {
     before(async () => {
-        const testUtil = TestUtil.getInstance();
-        client = await testUtil.getClient();
-        expect = await testUtil.expect;
+        const { getClient, expect: _expect } = TestUtil.getInstance();
+        client = await getClient();
+        expect = _expect;
     });
 
     after(async () => {

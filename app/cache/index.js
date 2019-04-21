@@ -45,7 +45,7 @@ class RedisCache {
 			return;
 		}
 		
-		redisClient.set(key, value, 'EX', exSecond);
+		redisClient.set(key, value);
 	}
 
 	/**

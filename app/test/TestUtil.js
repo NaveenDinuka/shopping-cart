@@ -28,6 +28,15 @@ class TestUtil {
         return chai.expect;
     }
 
+    get construct() {
+        return {
+            createTestUser: async () => {
+                const userModel = UserModel.getInstance();
+                const data = await userModel.createUser(testUser);
+            }
+        }
+    }
+
     get destruct() {
         return {
             deleteTestUser: async () => {
