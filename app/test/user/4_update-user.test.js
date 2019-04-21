@@ -27,7 +27,7 @@ describe('UserController Test Scenario', () => {
         done();
     });
 
-    describe('user sign-out test -- ', () => {
+    describe('update user test -- ', () => {
 
         it('sign-in user', (done) => {
             const { email, password } = testUser;
@@ -46,6 +46,22 @@ describe('UserController Test Scenario', () => {
                     expect(res.body.message).to.equal('Sign-in successful');
 
                     token = res.body.data.token;
+                    done();
+                });
+        });
+
+        it('update user', (done) => {
+            client.put(`${ apiPrefix }/user/auth`)
+                .set('Authorization', token)
+                .send({ firstName: 'Dinuka', lastName: 'Rajapaksa' })
+                .end((err, res) => {
+                    expect(res.status).to.equal(200);
+                    expect(res.body).not.to.be.empty;
+                    expect(res.body).to.be.an('object');
+                    expect(res.body).to.have.property('status');
+                    expect(res.body).to.have.property('message');
+                    expect(res.body.status).to.equal('OK');
+                    expect(res.body.message).to.equal('User data updated successfully');
                     done();
                 });
         });

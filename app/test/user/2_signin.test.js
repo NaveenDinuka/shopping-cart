@@ -3,6 +3,7 @@ import { apiPrefix, testUser } from '../constants';
 
 let client = null;
 let expect = null;
+let token = null;
 
 describe('UserController Test Scenario', () => {
     before(async () => {
@@ -76,6 +77,8 @@ describe('UserController Test Scenario', () => {
                     expect(res.body.data).to.have.property('token');
                     expect(res.body.status).to.equal('OK');
                     expect(res.body.message).to.equal('Sign-in successful');
+
+                    token = res.body.data.token;
                     done();
                 });
         });
@@ -83,7 +86,8 @@ describe('UserController Test Scenario', () => {
         it('sign-out user', (done) => {
             const { email, password } = testUser;
 
-            client.post(`${ apiPrefix }/user/signin`)
+            client.post(`${ apiPrefix }/user/auth/signout`)
+                .set('Authorization', token)
                 .send({ email, password })
                 .end((err, res) => {
                     expect(res.status).to.equal(200);
@@ -91,10 +95,8 @@ describe('UserController Test Scenario', () => {
                     expect(res.body).to.be.an('object');
                     expect(res.body).to.have.property('status');
                     expect(res.body).to.have.property('message');
-                    expect(res.body).to.have.property('data');
-                    expect(res.body.data).to.have.property('token');
                     expect(res.body.status).to.equal('OK');
-                    expect(res.body.message).to.equal('Sign-in successful');
+                    expect(res.body.message).to.equal('Sign-out successful');
                     done();
                 });
         });
