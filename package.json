@@ -7,8 +7,8 @@
     "start": "nodemon ./app --exec babel-node",
     "build": "rm -rf ./build && babel ./app -d build",
     "db:migrate": "node_modules/.bin/sequelize db:migrate",
-    "test:user": "mocha -t 10000 --require babel-node ./app/test/user/*.test.js",
-    "test:user:signup": "npm run build && mocha -t 10000 --require @babel/register ./build/test/user/signup.test.js",
+    "test:user": "mocha -t 10000 --require @babel/register ./app/test/user/*.test.js",
+    "test:user:signup": "npm run build && mocha -t 10000 --require @babel/register ./app/test/user/signup.test.js",
     "test:user:signin": "mocha -t 10000 --require @babel/register ./app/test/user/signin.test.js"
   },
   "repository": {
