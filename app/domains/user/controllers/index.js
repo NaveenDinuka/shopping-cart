@@ -70,6 +70,17 @@ const userController = {
 
         cache.del(tokenKey);
         res.boom.success('Sign-out successful');
+    },
+
+    updateUser: async (req, res) => {
+        const { user, body } = req;
+        const userModel = UserModel.getInstance();
+
+        const { status } = await userModel.updateUser({ where: { id: user.id } }, body);
+        if (status == 'error')
+            return res.boom.unauthorized('Something went wrong while updating user');
+
+        res.boom.success('User data updated successfully');
     }
 };
 

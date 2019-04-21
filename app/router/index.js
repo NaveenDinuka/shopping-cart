@@ -94,7 +94,7 @@ class Router {
     }
 
     makeRoute(path, middlewares) {
-        const _path = this.prefix ? `${ this.prefix }${ path }` : path;
+        const _path = this.prefix && path ? `${ this.prefix }${ path }` : this.prefix ? this.prefix : path;
         const _middlewares = this.middlewares ? [ ...this.middlewares, ...middlewares ] : middlewares;
 
         const route = [ _path, ..._middlewares ];

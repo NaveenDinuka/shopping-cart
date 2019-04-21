@@ -14,6 +14,11 @@ const signinSchema = Joi.object().keys({
     password: Joi.string().regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/).required(),
 });
 
+const updateUserSchema = Joi.object().keys({
+    firstName: Joi.string().alphanum().min(3).max(30).optional(),
+    lastName: Joi.string().alphanum().min(3).max(30).optional(),
+});
+
 const signup = (req, res, next) => {
     const result = Joi.validate(req.body, signupSchema);
     const { error } = result;
@@ -38,4 +43,16 @@ const signin = (req, res, next) => {
     next();
 };
 
-export { signup, signin };
+const updateUser = (req, res, next) => {
+    const result = Joi.validate(req.body, updateUserSchema);
+    const { error } = result;
+
+    if (error) {
+        res.boom.badRequest('Data validation error');
+        Logger.LOG_ERROR(error);
+    }
+
+    next();
+};
+
+export { signup, signin, updateUser };

@@ -54,6 +54,23 @@ class UserModel {
     }
 
     /**
+     * Update user by criteria
+     * @param Object:criteria
+     * @param Object:data
+     * @return Object:result
+     * */
+    async updateUser(criteria, data) {
+        const { User } = Schemas.getInstance().models;
+        try {
+            User.update({ ...data }, { ...criteria });
+            return { status: 'success' };
+        } catch(error) {
+            Logger.LOG_ERROR('UserModel', { status: 'Error occurred while updating user', error });
+            return { status: 'error', error }
+        }
+    }
+
+    /**
      * Delete user by criteria
      * @param Object:criteria
      * @return Object:result
