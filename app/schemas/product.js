@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     country: DataTypes.STRING,
     language: DataTypes.STRING,
     link: DataTypes.STRING,
-    page: DataTypes.STRING,
+    pages: DataTypes.STRING,
     title: DataTypes.STRING,
     qty: DataTypes.INTEGER,
     unitPrice: DataTypes.DOUBLE,

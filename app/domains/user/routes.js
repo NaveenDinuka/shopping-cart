@@ -7,7 +7,7 @@ export default function(route) {
     route.post('/signin', signin, userController.signin);
 
     route.group('/auth', [authMiddleware.userAuth], authRoute => {
-        route.post('/signout', userController.signout);
-        route.put(null, updateUser, userController.updateUser);
+        authRoute.post('/signout', userController.signout);
+        authRoute.put(null, updateUser, userController.updateUser);
     });
 }

@@ -20,7 +20,7 @@ module.exports = {
       link: {
         type: Sequelize.STRING
       },
-      page: {
+      pages: {
         type: Sequelize.STRING
       },
       title: {
