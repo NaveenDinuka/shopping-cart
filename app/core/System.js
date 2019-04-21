@@ -10,10 +10,6 @@ import RedisCache from '../cache';
 
 import systemRoutes from '../router/systemRoutes';
 class System {
-    constructor() {
-        this.initializeApp();
-    }
-    
     async initializeApp() {
         //- Initializing app router
         this.router = Router.getInstance();

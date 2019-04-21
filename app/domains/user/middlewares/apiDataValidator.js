@@ -14,7 +14,7 @@ const signup = (req, res, next) => {
     const { error } = result;
 
     if (error) {
-        res.boom.badRequest('data validation error');
+        res.boom.badRequest('Data validation error');
         Logger.LOG_ERROR(error);
     }
 
