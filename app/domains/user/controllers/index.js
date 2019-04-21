@@ -1,5 +1,11 @@
+import config from 'config';
+import jwt from 'jsonwebtoken';
 import UserModel from '../models';
+import UtilsHelper from '../../../helpers/UtilsHelper';
+import UUID from '../../../core/UUID';
+import RedisCache from '../../../cache';
 
+const { secretOrKey } = config.auth;
 const userController = {
     signup: async (req, res) => {
         const { firstName, lastName, email, password, confirmPassword } = req.body;
@@ -27,6 +33,43 @@ const userController = {
             return res.boom.badImplementation('Something went wrong while creating the user account');
 
         res.boom.success('Your account is created successfully')
+    },
+
+    signin: async (req, res) => {
+        const userModel = UserModel.getInstance();
+        const cache = RedisCache.getInstance();
+
+        const { email, password } = req.body;
+        const { status: userStatus, data: user } = await userModel.findUser({ where: { email } });
+
+        if (userStatus == 'error' || !user)
+            return res.boom.unauthorized('Invalid email or password');
+
+        /**
+         * Compare user API password with DB password of the particular user
+         * */
+        const { status: passwordStatus, data: compareResult } = await UtilsHelper.COMPARE_PASSWORD(password, user.password);
+        if (passwordStatus == 'error' || !compareResult)
+            return res.boom.unauthorized('Invalid email or password');
+
+        /**
+         * Generate user json web token and store token key in redis cache
+         * */
+        const tokenKey = UUID.timeStampUUID();
+        const payload = { tokenKey };
+        const token = jwt.sign(payload, secretOrKey);
+        cache.set(tokenKey, user.id);
+
+        const formattedUser = UserModel.formatUser(user);
+        res.boom.success('Sign-in successful', { user: formattedUser, token });
+    },
+
+    signout: async (req, res) => {
+        const { tokenKey } = req;
+        const cache = RedisCache.getInstance();
+
+        cache.del(tokenKey);
+        res.boom.success('Sign-out successful');
     }
 };
 
