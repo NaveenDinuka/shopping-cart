@@ -12,6 +12,10 @@ class UserModel {
         return instance;
     }
 
+    static formatUser({ id, firstName, lastName, email }) {
+        return { id, firstName, lastName, email };
+    }
+
     /**
      * Create user in DB
      * @param Object:data user's data
@@ -57,7 +61,7 @@ class UserModel {
     async deleteUser(criteria) {
         const { User } = Schemas.getInstance().models;
         try {
-            const user = await User.destroy(criteria);
+            await User.destroy(criteria);
             return { status: 'success' };
         } catch(error) {
             Logger.LOG_ERROR('UserModel', { status: 'Error occurred while deleting user', error });
