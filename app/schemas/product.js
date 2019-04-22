@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     version: DataTypes.INTEGER
   }, {});
   Product.associate = function(models) {
-    Product.hasMany(models.Cart);
+    Product.hasMany(models.Cart, { as: 'Cart', foreignKey: 'productId' });
   };
   return Product;
 };

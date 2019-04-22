@@ -6,8 +6,8 @@ module.exports = (sequelize, DataTypes) => {
     qty: DataTypes.INTEGER
   }, {});
   Cart.associate = function(models) {
-    Cart.belongsTo(models.User);
-    Cart.belongsTo(models.Product);
+    Cart.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
+    Cart.belongsTo(models.Product, { foreignKey: 'productId', as: 'product' });
   };
   return Cart;
 };

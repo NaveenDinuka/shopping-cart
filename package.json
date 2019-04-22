@@ -13,7 +13,8 @@
     "test:user:signin": "mocha -t 10000 --require @babel/register ./app/test/user/2_signin.test.js",
     "test:user:signout": "mocha -t 10000 --require @babel/register ./app/test/user/3_signout.test.js",
     "test:user:update": "mocha -t 10000 --require @babel/register ./app/test/user/4_update-user.test.js",
-    "test:product": "mocha -t 10000 --require @babel/register ./app/test/product/*.test.js"
+    "test:product": "mocha -t 10000 --require @babel/register ./app/test/product/*.test.js",
+    "test:cart": "mocha -t 10000 --require @babel/register ./app/test/cart/*.test.js"
   },
   "repository": {
     "type": "git",
