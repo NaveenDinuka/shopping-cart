@@ -5,17 +5,19 @@ let client = null;
 let expect = null;
 let token = null;
 
-describe('UserController Test Scenario', () => {
+describe('ProductController Test Scenario', () => {
     before(async () => {
-        const { construct, getClient, expect: _expect } = TestUtil.getInstance();
+        const { getClient, expect: _expect, construct } = TestUtil.getInstance();
         client = await getClient();
         expect = _expect;
 
         await construct.createTestUser();
+        token = await construct.signIn();
     });
 
     after(async () => {
         const { destruct } = TestUtil.getInstance();
+        await destruct.signOut(token);
         await destruct.deleteTestUser();
     });
 
@@ -27,13 +29,11 @@ describe('UserController Test Scenario', () => {
         done();
     });
 
-    describe('update user test -- ', () => {
+    describe('product test -- ', () => {
 
-        it('sign-in user', (done) => {
-            const { email, password } = testUser;
-
-            client.post(`${ apiPrefix }/user/signin`)
-                .send({ email, password })
+        it('fetch all products (without filter)', (done) => {
+            client.get(`${ apiPrefix }/product/all`)
+                .set('Authorization', token)
                 .end((err, res) => {
                     expect(res.status).to.equal(200);
                     expect(res.body).not.to.be.empty;
@@ -41,46 +41,48 @@ describe('UserController Test Scenario', () => {
                     expect(res.body).to.have.property('status');
                     expect(res.body).to.have.property('message');
                     expect(res.body).to.have.property('data');
-                    expect(res.body.data).to.have.property('token');
                     expect(res.body.status).to.equal('OK');
-                    expect(res.body.message).to.equal('Sign-in successful');
-
-                    token = res.body.data.token;
+                    expect(res.body.message).to.equal('All products');
+                    expect(res.body.data).to.be.an('array');
                     done();
                 });
         });
 
-        it('update user', (done) => {
-            client.put(`${ apiPrefix }/user/auth`)
+        it('fetch all products (with filter)', (done) => {
+            client.get(`${ apiPrefix }/product/all`)
                 .set('Authorization', token)
-                .send({ firstName: 'Dinuka', lastName: 'Rajapaksa' })
+                .query({ country: 'United Kingdom' })
                 .end((err, res) => {
                     expect(res.status).to.equal(200);
                     expect(res.body).not.to.be.empty;
                     expect(res.body).to.be.an('object');
                     expect(res.body).to.have.property('status');
                     expect(res.body).to.have.property('message');
+                    expect(res.body).to.have.property('data');
                     expect(res.body.status).to.equal('OK');
-                    expect(res.body.message).to.equal('User data updated successfully');
+                    expect(res.body.message).to.equal('All products');
+                    expect(res.body.data).to.be.an('array');
                     done();
                 });
         });
 
-        it('sign-out user', (done) => {
-            const { email, password } = testUser;
-
-            client.post(`${ apiPrefix }/user/auth/signout`)
+        it('find product', (done) => {
+            client.get(`${ apiPrefix }/product`)
                 .set('Authorization', token)
+                .query({ id: 2 })
                 .end((err, res) => {
                     expect(res.status).to.equal(200);
                     expect(res.body).not.to.be.empty;
                     expect(res.body).to.be.an('object');
                     expect(res.body).to.have.property('status');
                     expect(res.body).to.have.property('message');
+                    expect(res.body).to.have.property('data');
                     expect(res.body.status).to.equal('OK');
-                    expect(res.body.message).to.equal('Sign-out successful');
+                    expect(res.body.message).to.equal('Filtered Product');
+                    expect(res.body.data).to.be.an('object');
                     done();
                 });
         });
+
     });
 });

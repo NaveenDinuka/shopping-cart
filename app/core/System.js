@@ -5,6 +5,7 @@ import config from 'config';
 import bodyParser from 'body-parser';
 
 import Router from '../router';
+import Route from '../router/Route';
 import Sequelize from '../schemas/index';
 import RedisCache from '../cache';
 
@@ -25,7 +26,7 @@ class System {
         await redisClient.initializeRedis();
 
         //- System Routes
-        systemRoutes(this.router);
+        systemRoutes(new Route());
     }
 }
 

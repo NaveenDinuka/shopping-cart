@@ -25,16 +25,6 @@ class Router {
         this.middlewares.push(middleware);
     }
 
-    group(prefix, middlewares, cb) {
-        if (!prefix) prefix = '/';
-        if (!middlewares) middlewares = [];
-
-        const routeGroup = this;
-        routeGroup.prefix = routeGroup.prefix ? `${ routeGroup.prefix }${ prefix }` : prefix;
-        routeGroup.middlewares = this.middlewares ? [ ...routeGroup.middlewares, ...middlewares ] : middlewares;
-
-        cb(routeGroup);
-    }
 
     /**
      * Initialize HTTP routes
@@ -45,8 +35,9 @@ class Router {
         res.send = this.send;
         res.boom = new Boom(res);
 
-        const { pathname } = url.parse(req.url, true, true);
+        const { pathname, query } = url.parse(req.url, true, true);
         const method = req.method;
+        req.query = query;
 
         let hasRoute = false;
         this.routes[method].forEach(async ([ route, ...rest ]) => {
@@ -91,50 +82,6 @@ class Router {
                     res.resolve();
             }
         }
-    }
-
-    makeRoute(path, middlewares) {
-        const _path = this.prefix && path ? `${ this.prefix }${ path }` : this.prefix ? this.prefix : path;
-        const _middlewares = this.middlewares ? [ ...this.middlewares, ...middlewares ] : middlewares;
-
-        const route = [ _path, ..._middlewares ];
-        return route;
-    }
-
-    /**
-     * Set `GET` route
-     * @param Array:route
-     * */
-    get(path, ...rest) {
-        const { GET } = this.routes;
-        GET.push( this.makeRoute(path, rest) );
-    }
-
-    /**
-     * Set `POST` route
-     * @param Array:route
-     * */
-    post(path, ...rest) {
-        const { POST } = this.routes;
-        POST.push( this.makeRoute(path, rest) );
-    }
-
-    /**
-     * Set `PUT` route
-     * @param Array:route
-     * */
-    put(path, ...rest) {
-        const { PUT } = this.routes;
-        PUT.push( this.makeRoute(path, rest) );
-    }
-
-    /**
-     * Set `DELETE` route
-     * @param Array:route
-     * */
-    delete(path, ...rest) {
-        const { DELETE } = this.routes;
-        DELETE.push( this.makeRoute(path, rest) );
     }
 }
 
