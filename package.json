@@ -9,7 +9,8 @@
     "db:migrate": "node_modules/.bin/sequelize db:migrate",
     "db:seed": "node_modules/.bin/sequelize db:seed:all",
     "test:user": "mocha -t 10000 --require @babel/register ./app/test/user/*.test.js",
-    "test:product": "mocha -t 10000 --require @babel/register ./app/test/product/*.test.js"
+    "test:product": "mocha -t 10000 --require @babel/register ./app/test/product/*.test.js",
+    "test:cart": "mocha -t 10000 --require @babel/register ./app/test/cart/*.test.js"
   },
   "repository": {
     "type": "git",
