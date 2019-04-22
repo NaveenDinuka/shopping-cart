@@ -9,10 +9,6 @@
     "db:migrate": "node_modules/.bin/sequelize db:migrate",
     "db:seed": "node_modules/.bin/sequelize db:seed:all",
     "test:user": "mocha -t 10000 --require @babel/register ./app/test/user/*.test.js",
-    "test:user:signup": "npm run build && mocha -t 10000 --require @babel/register ./app/test/user/1_signup.test.js",
-    "test:user:signin": "mocha -t 10000 --require @babel/register ./app/test/user/2_signin.test.js",
-    "test:user:signout": "mocha -t 10000 --require @babel/register ./app/test/user/3_signout.test.js",
-    "test:user:update": "mocha -t 10000 --require @babel/register ./app/test/user/4_update-user.test.js",
     "test:product": "mocha -t 10000 --require @babel/register ./app/test/product/*.test.js"
   },
   "repository": {
