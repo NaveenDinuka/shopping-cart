@@ -35,8 +35,21 @@ const cartController = {
         const cartModel = CartModel.getInstance();
         const { user } = req;
 
-        const { status, data } = await cartModel.fetchCartItems({ where: { userId: user.id } });
-        res.boom.success('Cart items fetched successfully', data);
+        const { status, data: items } = await cartModel.fetchCartItems({ where: { userId: user.id } });
+        if (status === 'error')
+            return res.boom.badRequest('Something went wrong while gathering your cart info');
+
+        const total = items.reduce((total, item) => {
+            const { qty, product: { unitPrice } } = item;
+            const itemQty = Number(qty);
+            const itemUnitPrice = Number(unitPrice);
+            const itemTotal = (itemUnitPrice * itemQty).toFixed(2);
+
+            item.total = Number(itemTotal);
+            return total + item.total;
+        }, 0);
+
+        res.boom.success('Cart items fetched successfully', { total, items });
     }
 };
 
