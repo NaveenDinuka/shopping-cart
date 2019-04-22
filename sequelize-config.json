@@ -1,1 +1,1 @@
-{"host":"db","dialect":"postgres","port":"5432","username":"postgres","password":"36aded6dc7C1cf79b12!75449ER268ffc","database":"shopping-cart"}
+{"host":"db","dialect":"postgres","port":"5432","username":"postgres","password":"pgsqlpass","database":"shopping-cart"}
