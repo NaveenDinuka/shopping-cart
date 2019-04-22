@@ -87,4 +87,5 @@ RELEASE Tags
  1. Go inside of shopping-cart app. `shopping-cart`
  2. `docker-compose up -d`
  3. go inside the `node` container (`shopping-cart_app_`)
- 4. `npm run test:[user/product/cart]`
+ 4. `npm run build`
+ 5. `npm run test:[user/product/cart]`

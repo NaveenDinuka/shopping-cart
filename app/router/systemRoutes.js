@@ -6,6 +6,7 @@ import productDomainRoutes from '../domains/product/routes';
 import cartDomainRoutes from '../domains/cart/routes';
 
 export default function(route) {
+    route.get('/', (req, res) => { res.boom.success('Hello, Welcome to Shopping-cart API') });
     route.group('/api/v1', [], baseRoute => {
         baseRoute.get('/health-check', healthController.healthCheck);
         baseRoute.group('/user', [], userRoute => userDomainRoutes(userRoute));
