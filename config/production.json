@@ -1,1 +1,12 @@
-{}
+{
+  "database": {
+    "pgsql": {
+      "dialect": "postgres",
+      "host": "0.0.0.0",
+      "port": "5432",
+      "username": "postgres",
+      "password": "36aded6dc7C1cf79b12!75449ER268ffc",
+      "database": "shopping-cart"
+    }
+  }
+}
