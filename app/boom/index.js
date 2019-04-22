@@ -32,6 +32,11 @@ class Boom {
         res.send(400).json(makeJson(400, message));
     }
 
+    unauthorized(message) {
+        const { res, makeJson } = this;
+        res.send(401).json(makeJson(401, message));
+    }
+
     badImplementation(message) {
         const { res, makeJson } = this;
         res.send(500).json(makeJson(500, message));

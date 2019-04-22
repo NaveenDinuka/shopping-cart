@@ -1,5 +1,5 @@
 {
-  "appName": "Shopping Cart API",
+  "appName": "Shopping Cart",
   "logs": {
     "path": "./logs",
     "info": "info.log",
@@ -20,5 +20,9 @@
       "host": "0.0.0.0",
       "port": "6379"
     }
+  },
+  "auth": {
+    "secretOrKey": "shopping_cart_secret",
+    "jwtSession": { "session": false }
   }
 }

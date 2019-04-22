@@ -1,0 +1,17 @@
+const path = require('path');
+const fs = require('fs');
+const config = require('config');
+
+const { dialect, host, port, username, password, database } = config.database.pgsql;
+fs.writeFileSync("sequelize-config.json", JSON.stringify({host: process.env.DB_HOST || host, dialect, port, username, password, database}), 'utf8', (error) => {
+    if (error) {
+        return console.log(error);
+    }
+});
+
+module.exports = {
+    'config': path.resolve('./sequelize-config.json'),
+    'migrations-path': path.resolve('./app', 'migrations'),
+    'seeders-path': path.resolve('./app', 'seeders'),
+    'models-path': path.resolve('./app', 'schemas')
+}

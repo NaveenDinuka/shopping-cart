@@ -5,15 +5,12 @@ import config from 'config';
 import bodyParser from 'body-parser';
 
 import Router from '../router';
+import Route from '../router/Route';
 import Sequelize from '../schemas/index';
 import RedisCache from '../cache';
 
 import systemRoutes from '../router/systemRoutes';
 class System {
-    constructor() {
-        this.initializeApp();
-    }
-    
     async initializeApp() {
         //- Initializing app router
         this.router = Router.getInstance();
@@ -29,7 +26,7 @@ class System {
         await redisClient.initializeRedis();
 
         //- System Routes
-        systemRoutes(this.router);
+        systemRoutes(new Route());
     }
 }
 

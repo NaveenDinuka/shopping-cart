@@ -45,7 +45,7 @@ class RedisCache {
 			return;
 		}
 		
-		redisClient.set(key, value, 'EX', exSecond);
+		redisClient.set(key, value);
 	}
 
 	/**
@@ -60,6 +60,16 @@ class RedisCache {
 		} catch (error) {
 			Logger.LOG_ERROR('RedisCache', { status: 'Error occurred while reading cache data', error });
 		}
+	}
+
+	/**
+	 * Delete cache key
+	 * @param key:String Cache key
+	 * @return null;
+	 * */
+	del(key) {
+		const { redisClient } = this;
+		redisClient.del(key);
 	}
 }
 
