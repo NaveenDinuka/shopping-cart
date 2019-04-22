@@ -6,6 +6,8 @@
 Shopping Cart is a simple REST API to facilitate a simple shopping
 experience.
 
+API Documentation: [Follow-Me](https://documenter.getpostman.com/view/2075178/S1ETRcFS#c48def3f-2a56-4dc1-a19c-5bcb92f6ebda)
+
  - [Prereuisites](#prerequisites)
  - [Tech Stack](#prerequisites)
  - [Init Steps](#init-steps)
