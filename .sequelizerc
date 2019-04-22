@@ -12,5 +12,6 @@ fs.writeFileSync("sequelize-config.json", JSON.stringify({host: process.env.DB_H
 module.exports = {
     'config': path.resolve('./sequelize-config.json'),
     'migrations-path': path.resolve('./app', 'migrations'),
+    'seeders-path': path.resolve('./app', 'seeders'),
     'models-path': path.resolve('./app', 'schemas')
 }
