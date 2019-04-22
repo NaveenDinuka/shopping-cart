@@ -35,8 +35,9 @@ class Router {
         res.send = this.send;
         res.boom = new Boom(res);
 
-        const { pathname } = url.parse(req.url, true, true);
+        const { pathname, query } = url.parse(req.url, true, true);
         const method = req.method;
+        req.query = query;
 
         let hasRoute = false;
         this.routes[method].forEach(async ([ route, ...rest ]) => {

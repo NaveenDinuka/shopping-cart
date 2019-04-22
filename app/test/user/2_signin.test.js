@@ -88,7 +88,6 @@ describe('UserController Test Scenario', () => {
 
             client.post(`${ apiPrefix }/user/auth/signout`)
                 .set('Authorization', token)
-                .send({ email, password })
                 .end((err, res) => {
                     expect(res.status).to.equal(200);
                     expect(res.body).not.to.be.empty;

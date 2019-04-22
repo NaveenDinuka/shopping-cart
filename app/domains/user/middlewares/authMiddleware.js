@@ -24,7 +24,7 @@ const authMiddleware = {
              * Find user by cached user id extracted from jwt
              * */
             const { status, data } = await UserModel.getInstance().findUser({ where: { id: cachedUser } });
-            if (status === 'error')
+            if (status === 'error' || !data)
                 return res.boom.unauthorized('Invalid token provided. Please signin and try again');
 
             const user = UserModel.formatUser(data);

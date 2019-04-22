@@ -32,6 +32,22 @@ class ProductModel {
             return { status: 'error', error }
         }
     }
+
+    /**
+     * Fetch a particular product by criteria
+     * @param Object:criteria
+     * @return Object:result
+     * */
+    async findProduct(criteria) {
+        const { Product } = Schemas.getInstance().models;
+        try {
+            const product = await Product.findOne(criteria);
+            return { status: 'success', data: product };
+        } catch(error) {
+            Logger.LOG_ERROR('UserModel', { status: 'Error occurred while finding product', error });
+            return { status: 'error', error }
+        }
+    }
 }
 
 export default ProductModel;

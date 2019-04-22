@@ -10,7 +10,6 @@ prettyStream.pipe(process.stdout);
 
 class Logger {
     constructor() {
-        console.log('creating');
         fs.mkdirSync(path);
     }
 
