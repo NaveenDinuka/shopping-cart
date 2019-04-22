@@ -41,9 +41,13 @@ describe('CartController Test Scenario', () => {
                     expect(res.body).to.have.property('status');
                     expect(res.body).to.have.property('message');
                     expect(res.body).to.have.property('data');
+                    expect(res.body.data).to.have.property('total');
+                    expect(res.body.data).to.have.property('items');
                     expect(res.body.status).to.equal('OK');
                     expect(res.body.message).to.equal('Cart items fetched successfully');
-                    expect(res.body.data).to.be.an('array');
+                    expect(res.body.data).to.be.an('object');
+                    expect(res.body.data.total).to.be.an('number');
+                    expect(res.body.data.items).to.be.an('array');
                     done();
                 });
         });
