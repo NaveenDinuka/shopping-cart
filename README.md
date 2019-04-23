@@ -91,3 +91,6 @@ RELEASE Tags
  3. go inside the `node` container (`shopping-cart_app_`)
  4. `npm run build`
  5. `npm run test:[user/product/cart]`
+ 
+ ## Next
+ 1. Performance test the API
